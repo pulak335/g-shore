@@ -12,7 +12,7 @@ import CheckoutModal from '../../components/checkout/checkout-modal'
 
 export default function Cart() {
   const dispatch = useDispatch()
-  const { items, total } = useSelector(state => state.cart)
+  const { items, total, originalTotal, totalSavings } = useSelector(state => state.cart)
   const [showToast, setShowToast] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const [toastType, setToastType] = useState('success')
@@ -66,7 +66,6 @@ export default function Cart() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Shopping Cart</h1>
@@ -108,6 +107,14 @@ export default function Cart() {
                         </p>
                         <div className="text-lg font-bold text-primary-600">
                           ${item.price}
+                          {item.originalPrice && item.originalPrice > item.price && (
+                            <div className="flex items-center gap-2 mt-1">
+                              <span className="text-sm text-gray-500 line-through">${item.originalPrice}</span>
+                              <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-medium">
+                                -{item.discount}%
+                              </span>
+                            </div>
+                          )}
                         </div>
                       </div>
 
@@ -155,10 +162,22 @@ export default function Cart() {
               <h2 className="text-xl font-semibold text-gray-900 mb-6">Order Summary</h2>
               
               <div className="space-y-4 mb-6">
+                {totalSavings > 0 && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Original Total</span>
+                    <span className="font-medium line-through text-gray-500">${originalTotal.toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="text-gray-600">Subtotal</span>
                   <span className="font-medium">${total.toFixed(2)}</span>
                 </div>
+                {totalSavings > 0 && (
+                  <div className="flex justify-between">
+                    <span className="text-green-600">You Save</span>
+                    <span className="font-medium text-green-600">${totalSavings.toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="text-gray-600">Tax</span>
                   <span className="font-medium">${(total * 0.1).toFixed(2)}</span>

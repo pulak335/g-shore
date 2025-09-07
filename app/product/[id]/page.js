@@ -102,7 +102,6 @@ export default function ProductPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
       
       <main className="pt-20">
         {/* Breadcrumb */}
@@ -209,6 +208,14 @@ export default function ProductPage() {
                 {/* Price */}
                 <div className="text-4xl font-bold text-primary-600">
                   ${product.price}
+                  {product.originalPrice && product.originalPrice > product.price && (
+                    <div className="flex items-center gap-3 mt-2">
+                      <span className="text-xl text-gray-500 line-through">${product.originalPrice}</span>
+                      <span className="text-sm bg-red-100 text-red-600 px-2 py-1 rounded-full font-medium">
+                        -{product.discount}% OFF
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Availability */}

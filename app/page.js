@@ -18,7 +18,11 @@ import {
   ArrowRight,
   Leaf,
   Fish,
-  Utensils
+  Utensils,
+  Gift,
+  Clock,
+  Truck,
+  Percent
 } from 'lucide-react'
 import Link from 'next/link'
 import Header from '../components/layout/header'
@@ -56,6 +60,121 @@ export default function HomePage() {
         <CategoryGrid categories={categories} />
         
         <FeaturedItems items={items.slice(0, 6)} />
+
+        {/* Marketing Banner */}
+        <section className="py-16 bg-gradient-to-r from-primary-600 to-primary-800 relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0 bg-repeat" style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+              backgroundSize: '20px 20px'
+            }}></div>
+          </div>
+          
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              {/* Main Banner Content */}
+              <div className="mb-8">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <Gift className="w-8 h-8 text-white" />
+                  <h2 className="text-3xl lg:text-5xl font-bold text-white">
+                    Special Offer!
+                  </h2>
+                  <Percent className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-xl lg:text-2xl text-primary-100 mb-6">
+                  Get <span className="font-bold text-yellow-300">25% OFF</span> on your first order
+                </p>
+                <p className="text-lg text-primary-200 max-w-3xl mx-auto mb-8">
+                  Fresh groceries delivered to your door with our premium service. 
+                  Use code <span className="font-bold text-yellow-300 bg-white/20 px-2 py-1 rounded">WELCOME25</span> at checkout.
+                </p>
+              </div>
+
+              {/* Features Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="text-center"
+                >
+                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Truck className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Free Delivery</h3>
+                  <p className="text-primary-200">On orders over $50</p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="text-center"
+                >
+                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Clock className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Same Day Delivery</h3>
+                  <p className="text-primary-200">Order by 2 PM</p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  className="text-center"
+                >
+                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Zap className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">Fresh Guarantee</h3>
+                  <p className="text-primary-200">100% satisfaction or refund</p>
+                </motion.div>
+              </div>
+
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              >
+                <Link 
+                  href="/store"
+                  className="bg-white text-primary-600 px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors flex items-center gap-2 shadow-lg"
+                >
+                  Shop Now
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link 
+                  href="/categories"
+                  className="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-primary-600 transition-colors flex items-center gap-2"
+                >
+                  Browse Categories
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </motion.div>
+
+              {/* Limited Time Notice */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 1 }}
+                className="mt-8 text-center"
+              >
+                <p className="text-primary-200 text-sm">
+                  ⏰ Limited time offer - Valid until end of month
+                </p>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
 
         {/* Fruits & Vegetables Section */}
         <section className="py-16 bg-white">
@@ -130,6 +249,14 @@ export default function HomePage() {
                     <div className="flex items-center justify-between">
                       <div className="text-lg font-bold text-green-600">
                         ${item.price}
+                        {item.originalPrice && item.originalPrice > item.price && (
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-sm text-gray-500 line-through">${item.originalPrice}</span>
+                            <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-medium">
+                              -{item.discount}%
+                            </span>
+                          </div>
+                        )}
                       </div>
                       <button className="p-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
                         <ShoppingCart className="w-4 h-4" />
@@ -225,6 +352,14 @@ export default function HomePage() {
                     <div className="flex items-center justify-between">
                       <div className="text-lg font-bold text-blue-600">
                         ${item.price}
+                        {item.originalPrice && item.originalPrice > item.price && (
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-sm text-gray-500 line-through">${item.originalPrice}</span>
+                            <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-medium">
+                              -{item.discount}%
+                            </span>
+                          </div>
+                        )}
                       </div>
                       <button className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                         <ShoppingCart className="w-4 h-4" />
@@ -320,6 +455,14 @@ export default function HomePage() {
                     <div className="flex items-center justify-between">
                       <div className="text-lg font-bold text-orange-600">
                         ${item.price}
+                        {item.originalPrice && item.originalPrice > item.price && (
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-sm text-gray-500 line-through">${item.originalPrice}</span>
+                            <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-medium">
+                              -{item.discount}%
+                            </span>
+                          </div>
+                        )}
                       </div>
                       <button className="p-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
                         <ShoppingCart className="w-4 h-4" />
@@ -424,6 +567,14 @@ export default function HomePage() {
                     <div className="flex items-center justify-between">
                       <div className="text-2xl font-bold text-primary-600">
                         ${item.price}
+                        {item.originalPrice && item.originalPrice > item.price && (
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-sm text-gray-500 line-through">${item.originalPrice}</span>
+                            <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-medium">
+                              -{item.discount}%
+                            </span>
+                          </div>
+                        )}
                       </div>
                       <div className="flex gap-2">
                         <Link href={`/product/${item.id}`}>

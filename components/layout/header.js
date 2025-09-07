@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, ShoppingCart, User, LogOut, Settings, Package, ChevronDown } from 'lucide-react'
+import { Search, ShoppingCart, User, LogOut, Settings, Package, ChevronDown, RotateCcw } from 'lucide-react'
 import Link from 'next/link'
 import AuthModal from '../auth/auth-modal'
 import CheckoutModal from '../checkout/checkout-modal'
@@ -113,6 +113,14 @@ export default function Header() {
                         >
                           <Package className="w-4 h-4" />
                           Orders
+                        </Link>
+                        <Link
+                          href="/returns"
+                          className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+                          onClick={() => setShowUserMenu(false)}
+                        >
+                          <RotateCcw className="w-4 h-4" />
+                          Returns
                         </Link>
                         <Link
                           href="/profile?tab=settings"
