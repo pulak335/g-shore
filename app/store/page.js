@@ -612,6 +612,14 @@ export default function StorePage() {
                        <div className="flex items-center justify-between">
                          <div className="text-2xl font-bold text-primary-600">
                            ${item.price}
+                           {item.originalPrice && item.originalPrice > item.price && (
+                             <div className="flex items-center gap-2 mt-1">
+                               <span className="text-sm text-gray-500 line-through">${item.originalPrice}</span>
+                               <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded-full font-medium">
+                                 -{item.discount}%
+                               </span>
+                             </div>
+                           )}
                          </div>
                          <div className="flex gap-2">
                            <Link href={`/product/${item.id}`}>
